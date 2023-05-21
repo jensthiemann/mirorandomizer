@@ -130,9 +130,11 @@ async function init() {
   }
 
   checkboxShowHelperSticky.oninput = function() {
-    diceHelperSticky == this.value
+    diceHelperSticky == true
   }
-
+  checkboxShowHelperSticky.onchange = function() {
+    diceHelperSticky == true
+  }
 }
 
 // ---------------------------------------------------------
