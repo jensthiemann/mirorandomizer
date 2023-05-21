@@ -22,7 +22,6 @@ const buttonShuffleElements = document.getElementById("button_ShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
 
 const checkboxShowHelperSticky = document.getElementById("checkboxShowHelperSticky");
-checkboxShowHelperSticky.addEventListener("toggle", rollD20, false);
 
 // ---------------------------------------------------------
 // -- Initialization
@@ -88,21 +87,7 @@ async function rollD20() {
 
 async function init() {
   
-  // init slider and change event
-  sliderText.innerHTML = slider.value
-  slider.oninput = function() {
-      sliderText.innerHTML = this.value
-  }
-  textDiceWidth.innerHTML = sliderDiceWidth.value
-  sliderDiceWidth.oninput = function() {
-    textDiceWidth.innerHTML = this.value
-    diceWidth =  parseInt(this.value)
-  }
-  selectboxColor.oninput = function() {
-    diceColor = this.value
-  }
-
-  // drop event for dices 
+  // register drop event for dices 
   await miro.board.ui.on('drop', async ({x, y, target}) => {    
     
     var max = 1
@@ -129,6 +114,24 @@ async function init() {
         diceElementIDs.push(sticky)
     }
   });
+
+  // init sliders and register change events
+  sliderText.innerHTML = slider.value
+  slider.oninput = function() {
+      sliderText.innerHTML = this.value
+  }
+  textDiceWidth.innerHTML = sliderDiceWidth.value
+  sliderDiceWidth.oninput = function() {
+    textDiceWidth.innerHTML = this.value
+    diceWidth =  parseInt(this.value)
+  }
+  selectboxColor.oninput = function() {
+    diceColor = this.value
+  }
+
+  checkboxShowHelperSticky.oninput = function() {
+    diceHelperSticky == this.value
+  }
 
 }
 
