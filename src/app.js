@@ -1,19 +1,14 @@
 // ---------------------------------------------------------
 // -- UI elements
 
+const slider = document.getElementById("amountSlider");
+const sliderText = document.getElementById("amountText");
+
 const TextD6 = document.getElementById("TextD6");
 TextD6.addEventListener("click", rollD6, false);
 
 const TextD20 = document.getElementById("TextD20");
 TextD20.addEventListener("click", rollD20, false);
-
-const slider = document.getElementById("amountSlider");
-const sliderText = document.getElementById("amountText");
-
-const sliderDiceWidth = document.getElementById("sliderDiceWidth");
-const textDiceWidth = document.getElementById("textDiceWidth");
-
-const selectboxColor = document.getElementById("selectboxColor");
 
 const buttonRemoveDices = document.getElementById("button_removeDices");
 buttonRemoveDices.addEventListener("click", removeDices, false);
@@ -21,6 +16,9 @@ buttonRemoveDices.addEventListener("click", removeDices, false);
 const buttonShuffleElements = document.getElementById("button_ShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
 
+const sliderDiceWidth = document.getElementById("sliderDiceWidth");
+const textDiceWidth = document.getElementById("textDiceWidth");
+const selectboxColor = document.getElementById("selectboxColor");
 const checkboxShowHelperSticky = document.getElementById("checkboxShowHelperSticky");
 
 // ---------------------------------------------------------
@@ -86,7 +84,7 @@ async function rollD20() {
 // -- init
 
 async function init() {
-  
+  console.log ("Init ...")
   // register drop event for dices 
   await miro.board.ui.on('drop', async ({x, y, target}) => {    
     
@@ -130,11 +128,9 @@ async function init() {
   }
 
   checkboxShowHelperSticky.oninput = function() {
-    diceHelperSticky == true
-  }
-  checkboxShowHelperSticky.onchange = function() {
-    diceHelperSticky == true
-  }
+    diceHelperSticky = this.checked
+  }  
+  
 }
 
 // ---------------------------------------------------------
