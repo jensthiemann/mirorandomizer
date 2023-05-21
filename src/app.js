@@ -21,6 +21,8 @@ buttonRemoveDices.addEventListener("click", removeDices, false);
 const buttonShuffleElements = document.getElementById("button_ShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
 
+const checkboxShowHelperSticky = document.getElementById("button_removeDices");
+buttonShuffleElements.addEventListener("click", rollD20, false);
 
 // ---------------------------------------------------------
 // -- Initialization
