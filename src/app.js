@@ -22,7 +22,7 @@ const buttonShuffleElements = document.getElementById("button_ShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
 
 const checkboxShowHelperSticky = document.getElementById("button_removeDices");
-buttonShuffleElements.addEventListener("toggle", rollD20, false);
+checkboxShowHelperSticky.addEventListener("toggle", rollD20, false);
 
 // ---------------------------------------------------------
 // -- Initialization
@@ -30,6 +30,7 @@ buttonShuffleElements.addEventListener("toggle", rollD20, false);
 var diceElementIDs = [];
 var diceWidth = 200;
 var diceColor = "black";
+var diceHelperSticky = false;
 init();
 
 // ---------------------------------------------------------
@@ -100,7 +101,8 @@ async function init() {
   selectboxColor.oninput = function() {
     diceColor = this.value
   }
-  // drop event  
+
+  // drop event for dices 
   await miro.board.ui.on('drop', async ({x, y, target}) => {    
     
     var max = 1
@@ -109,11 +111,11 @@ async function init() {
 
     const amountSlider = document.getElementById("amountSlider")
     const amount = amountSlider.value 
-
-     
-    var infoSticky = await miro.board.createStickyNote({x, y, width: diceWidth,
+    if( diceHelperSticky == true) {
+      var infoSticky = await miro.board.createStickyNote({x, y, width: diceWidth,
             content: amount + " D" + max  });
-    diceElementIDs.push(infoSticky)
+      diceElementIDs.push(infoSticky)
+    }
 
     for(var i=1; i<=amount; i++) {
         var posX = x + i*diceWidth
