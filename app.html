@@ -10,15 +10,57 @@
   <body>
     
     <div class="grid wrapper">
-      <div class="cs1 ce12">
-        <img src="/src/assets/congratulations.png" alt="" />
-      </div>
-      <div class="cs1 ce12">
-        <h1>Randomizer Vanilla</h1>
-        <p>Great, your app is running ...Yes, Yes, Yes!</p>  
-      </div>
+      <div class="cs1 ce12"> 
+
+    <h1>Dices</h1>
+    <p>Press button to create a sticky note with a random number at the center.</p>
+    <p>Drag a button to create a sticky notes with a random number where you drop it.
+       Create multiple, by increasing the slider.</p>
+    <div>
+     Amount of Dices: <span id="amountText">1</span>
+     <input type="range" min="1" max="5" value="1" class="slider" id="amountSlider"><br/><br/>
     </div>
+    <div class="button button-primary miro-draggable" id="TextD6">D6</div>
+    <div class="button button-primary miro-draggable" id="TextD20">D20</div>
+    <div>
+     Dice Width: <span id="textDiceWidth">200</span>
+     <input type="range" min="50" max="500" step="50" value="200" class="slider" id="sliderDiceWidth">
+    </div>
+    <div>
+     Dice Color: 
+     <select id="selectboxColor">
+      <option value="black">black</option>
+      <option value="blue">blue</option>
+      <option value="cyan">cyan</option>
+      <option value="dark_blue">dark_blue</option>
+      <option value="dark_green">dark_green</option>
+      <option value="gray">gray</option>
+      <option value="green">green</option>
+      <option value="light_blue">light_blue</option>
+      <option value="light_green">light_green</option>
+      <option value="light_pink">light_pink</option>
+      <option value="light_yellow">light_yellow</option>
+      <option value="yellow">yellow</option>
+      <option value="orange">orange</option>
+      <option value="pink">pink</option>
+      <option value="red">red</option>
+      <option value="violet">violet</option>
+     </select>
+    </div>
+    <p/>
+    <p>
+     To clean up the board from the dices, use: 
+    <div class="button button-primary" id="button_removeDices">Remove Dices</div>
+    </p>
+  
+    <h1>Shuffle</h1>
+    <p>Shuffle all selected elements in a random order from front to back.
+    <div class="button button-primary" id="button_ShuffleElements">Shuffle Cards</div>
+    </p>
     
+  </div>
+</div>
+
     <script type="module" src="/src/app.js"></script>
   </body>
 </html>
