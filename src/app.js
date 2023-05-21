@@ -1,7 +1,6 @@
 // ---------------------------------------------------------
 // -- UI elements
 
-
 const TextD6 = document.getElementById("TextD6");
 TextD6.addEventListener("click", rollD6, false);
 
@@ -70,15 +69,13 @@ async function rollDice(max) {
     },
     content: 'D'+max+' rolls ' +randomBetween(1,max) 
   });
-
-
-
-
   diceElementIDs.push(stickyNote)
 }
+
 async function rollD6() {
     rollDice(6)
 }
+
 async function rollD20() {
   rollDice(20)
 }

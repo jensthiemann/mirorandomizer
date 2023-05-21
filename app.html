@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/assets/style.css" />
     <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
-    <title>Randomize</title>
+    <title>Randomizer</title>
   </head>
   <body>
     
     <div class="grid wrapper">
       <div class="cs1 ce12"> 
 
-    <h1>Dices</h1>
-    <p>Press button to create a sticky note with a random number at the center.</p>
+    <h1 class="h1">Dices</h1>
+    <p class="p-medium">Press button to create a sticky note with a random number at the center.</p>
     <p>Drag a button to create a sticky notes with a random number where you drop it.
        Create multiple, by increasing the slider.</p>
     <div>
@@ -23,8 +23,10 @@
     <div class="button button-primary miro-draggable" id="TextD6">D6</div>
     <div class="button button-primary miro-draggable" id="TextD20">D20</div>
     <div>
+     <p class="p-small">
      Dice Width: <span id="textDiceWidth">200</span>
      <input type="range" min="50" max="500" step="50" value="200" class="slider" id="sliderDiceWidth">
+     </p>
     </div>
     <div>
      Dice Color: 
