@@ -22,7 +22,7 @@ const buttonShuffleElements = document.getElementById("button_ShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
 
 const checkboxShowHelperSticky = document.getElementById("button_removeDices");
-buttonShuffleElements.addEventListener("click", rollD20, false);
+buttonShuffleElements.addEventListener("toggle", rollD20, false);
 
 // ---------------------------------------------------------
 // -- Initialization
