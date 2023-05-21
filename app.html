@@ -8,10 +8,9 @@
     <title>Randomizer</title>
   </head>
   <body>
+
     <h1 class="h1">Dices</h1>
-    <p class="p-large">Press button to create a sticky note with a random number at the center.</p>
-    <p class="p-large">Drag a button to create a sticky notes with a random number where you drop it.
-       Create multiple, by increasing the slider.</p>
+    <p class="p-large">Press or drag a button to create sticky notes with a random number.</p>
     <div>
      Amount of Dices: <span id="amountText">1</span>
      <input type="range" min="1" max="5" value="1" class="slider" id="amountSlider"><br/><br/>
@@ -29,13 +28,14 @@
     <p class="p-large">Shuffle all selected elements in a random order from front to back.</p>
     <div class="button button-primary" id="button_ShuffleElements">Shuffle Cards</div>
     <hr/>
-     <h3>Configuration</h3>
-      <p class="p-small">
+
+    <h3>Configuration</h3>
+    <p class="p-small">
       Dice Width: 
       <input type="range" min="50" max="500" step="50" value="200" class="slider" id="sliderDiceWidth">
       <span id="textDiceWidth">200</span>px
-      </p>
-       <p class="p-small">
+    </p>
+    <p class="p-small">
       Dice Color: 
       <select class="select-small" id="selectboxColor">
        <option value="black">black</option>
@@ -55,10 +55,12 @@
        <option value="red">red</option>
        <option value="violet">violet</option>
       </select>
-     </p>
+    </p>
+    <hr/>
     <h3>Credits</h3>   
-    <p class="p-small"><br/>Implemented by jens@thiemann.com</p>
+    <p class="p-small">Implemented by jens@thiemann.com</p>
 
     <script type="module" src="/src/app.js"></script>
+    
   </body>
 </html>
