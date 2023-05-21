@@ -8,10 +8,6 @@
     <title>Randomizer</title>
   </head>
   <body>
-    
-    <div class="grid wrapper">
-      <div class="cs1 ce12"> 
-
     <h1 class="h1">Dices</h1>
     <p class="p-large">Press button to create a sticky note with a random number at the center.</p>
     <p class="p-large">Drag a button to create a sticky notes with a random number where you drop it.
@@ -24,14 +20,14 @@
     <div class="button button-primary miro-draggable" id="TextD20">D20</div>
     <div>
      <p class="p-small">
-     Dice Width: <span id="textDiceWidth">200</span>
+     Dice Width: <span id="textDiceWidth">200</span>px
      <input type="range" min="50" max="500" step="50" value="200" class="slider" id="sliderDiceWidth">
      </p>
     </div>
     <div>
       <p class="p-small">
      Dice Color: 
-     <select class="select" id="selectboxColor">
+     <select class="select-small" id="selectboxColor">
       <option value="black">black</option>
       <option value="blue">blue</option>
       <option value="cyan">cyan</option>
@@ -60,10 +56,8 @@
     <h1 class="h1">Shuffle</h1>
     <p class="p-large">Shuffle all selected elements in a random order from front to back.</p>
     <div class="button button-primary" id="button_ShuffleElements">Shuffle Cards</div>
-
+    <hr/>
     <p class="p-small"><br/>Implemented by jens@thiemann.com</p>
-  </div>
-</div>
 
     <script type="module" src="/src/app.js"></script>
   </body>
