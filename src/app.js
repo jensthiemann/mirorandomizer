@@ -84,7 +84,7 @@ async function rollD20() {
 // -- init
 
 async function init() {
-  console.log ("Init ...")
+
   // register drop event for dices 
   await miro.board.ui.on('drop', async ({x, y, target}) => {    
     
