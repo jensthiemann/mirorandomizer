@@ -21,6 +21,7 @@ buttonPickRandom.addEventListener("click", pickRandomElement, false);
 
 const sliderDiceWidth = document.getElementById("sliderDiceWidth");
 const textDiceWidth = document.getElementById("textDiceWidth");
+
 const selectboxColor = document.getElementById("selectboxColor");
 
 // ---------------------------------------------------------
@@ -34,94 +35,99 @@ init();
 // ---------------------------------------------------------
 // -- Event functions
 
-async function shuffleElements() {  
-    var selection = await miro.board.getSelection()
-    var firstElement = selection[0]
-    for (var i=0; i<2*selection.length; i++){
-        var r = randomBetween(0,selection.length-1)
-        await miro.board.bringToFront(selection[r])
-    }
-    // await miro.board.bringToFront(firstElement)
+async function shuffleElements() {
+  var selection = await miro.board.getSelection();
+  var firstElement = selection[0];
+  for (var i = 0; i < 2 * selection.length; i++) {
+    var r = randomBetween(0, selection.length - 1);
+    await miro.board.bringToFront(selection[r]);
+  }
+  // await miro.board.bringToFront(firstElement)
 }
 
-async function pickRandomElement() {  
-  var selection = await miro.board.getSelection()
-  var r = randomBetween(0,selection.length-1)
-  await miro.board.deselect()
-  await miro.board.select({id: selection[r].id})
-  await miro.board.bringToFront(selection[r])
+async function pickRandomElement() {
+  var selection = await miro.board.getSelection();
+  var r = randomBetween(0, selection.length - 1);
+  await miro.board.deselect();
+  await miro.board.select({ id: selection[r].id });
+  await miro.board.bringToFront(selection[r]);
 }
 
-async function removeDices() {  
-    for (var i=0; i<diceElementIDs.length; i++){
-      var id = diceElementIDs[i].id
-      if(miro.board.getById(id)!=null) {
-        await miro.board.remove(diceElementIDs[i]).catch((error) => { 
-            // ignore any error
-          })
-      }
+async function removeDices() {
+  for (var i = 0; i < diceElementIDs.length; i++) {
+    var id = diceElementIDs[i].id;
+    if (miro.board.getById(id) != null) {
+      await miro.board.remove(diceElementIDs[i]).catch((error) => {
+        // ignore any error
+      });
     }
-    diceElementIDs = []
+  }
+  diceElementIDs = [];
 }
 
 async function rollD6() {
-  rollDice(6)
+  rollDice(6);
 }
 
 async function rollD20() {
-  rollDice(20)
+  rollDice(20);
 }
+
 async function rollDice(max) {
-  const viewport = await miro.board.viewport.get()
-  var posX = ( viewport.x + viewport.width ) / 2
-  var posY = ( viewport.y + viewport.height ) / 2
-  rollDiceAt(posX, posY, max)
+  const viewport = await miro.board.viewport.get();
+  var posX = (viewport.x + viewport.width) / 2;
+  var posY = (viewport.y + viewport.height) / 2;
+  rollDiceAt(posX, posY, max);
 }
 
 async function rollDiceAt(posX, posY, max) {
-  var result = ""+randomBetween(1,max)
-  if(result == "6" || result == "9") {
-    result = result + "."
+  var result = "" + randomBetween(1, max);
+  if (result == "6" || result == "9") {
+    result = result + ".";
   }
-  drawDice(posX, posY, result, max)
+  drawDice(posX, posY, result, max);
 }
 
 async function drawDice(posX, posY, diceText, max) {
-  if( max == 20 ) { // D20: use image + text
-    var rotationAngle = randomBetween(-70,70)
+  if (max == 20) {
+    // D20: use image + text
+    var rotationAngle = randomBetween(-70, 70);
     const image = await miro.board.createImage({
-      url: 'https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png',
-      x:posX, y:posY,
+      url: "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png",
+      x: posX,
+      y: posY,
       width: 400, // Set either 'width', or 'height'
       rotation: rotationAngle,
     });
-    diceElementIDs.push(image)
+    diceElementIDs.push(image);
     const text = await miro.board.createText({
-      content: ""+diceText,
+      content: "" + diceText,
       style: {
-        color: '#ffffff',
+        color: "#ffffff",
         fontSize: 80,
-        textAlign: 'center',
+        textAlign: "center",
       },
-      x:posX, y:posY,
+      x: posX,
+      y: posY,
       width: 350,
       // 'height' is calculated automatically, based on 'width'
       rotation: rotationAngle, // The text item is upside down on the board
     });
-    diceElementIDs.push(text)
-  }
-  else { // not a D20: use sticky note
+    diceElementIDs.push(text);
+  } else {
+    // not a D20: use sticky note
     const stickyNote = await miro.board.createStickyNote({
-      x:posX, y:posY,
+      x: posX,
+      y: posY,
       width: diceWidth,
       style: {
         fillColor: diceColor,
-        textAlign: 'center',
-        textAlignVertical: 'middle',
+        textAlign: "center",
+        textAlignVertical: "middle",
       },
-      content: ""+diceText
+      content: "" + diceText,
     });
-    diceElementIDs.push(stickyNote)
+    diceElementIDs.push(stickyNote);
   }
 }
 
@@ -129,51 +135,51 @@ async function drawDice(posX, posY, diceText, max) {
 // -- init
 
 async function init() {
+  // register drop event for dices
+  await miro.board.ui.on("drop", async ({ x, y, target }) => {
+    var max = 1;
+    if (target.id.endsWith("D6")) {
+      max = 6;
+    }
+    if (target.id.endsWith("D20")) {
+      max = 20;
+    }
 
-  // register drop event for dices 
-  await miro.board.ui.on('drop', async ({x, y, target}) => {    
-    
-    var max = 1
-    if (target.id.endsWith("D6")) { max = 6 }
-    if (target.id.endsWith("D20")) { max = 20 }
+    const sliderAmount = document.getElementById("sliderAmount");
+    const amount = sliderAmount.value;
 
-    const sliderAmount = document.getElementById("sliderAmount")
-    const amount = sliderAmount.value 
-
-    for(var i=1; i<=amount; i++) {
-        var posX = x + i*500   // i*diceWidth
-        var posY = y + randomBetween(-100,100)
-        rollDiceAt(posX, posY, max)  // width: diceWidth
+    for (var i = 0; i < amount; i++) {
+      var posX = x + i * 500 + randomBetween(-20, 20) // i*diceWidth
+      var posY = y + randomBetween(-100, 100);
+      rollDiceAt(posX, posY, max);
     }
   });
 
   // init fields and register change events
-  textAmount.innerHTML = sliderAmount.value + "dice"
-  sliderAmount.oninput = function() {
-      textAmount.innerHTML = this.value + " dice(s)"
-      if( this.value == 1 ) {
-        textAmount.innerHTML = this.value + " dice"
-      } else {
-        textAmount.innerHTML = this.value + " dices"
-      }
-  }
-  textDiceWidth.innerHTML = sliderDiceWidth.value
-  sliderDiceWidth.oninput = function() {
-    textDiceWidth.innerHTML = this.value
-    diceWidth =  parseInt(this.value)
-  }
-  selectboxColor.oninput = function() {
-    diceColor = this.value
-  }
-  
+  textAmount.innerHTML = sliderAmount.value + "dice";
+  sliderAmount.oninput = function () {
+    textAmount.innerHTML = this.value + " dice(s)";
+    if (this.value == 1) {
+      textAmount.innerHTML = this.value + " dice";
+    } else {
+      textAmount.innerHTML = this.value + " dices";
+    }
+  };
+  textDiceWidth.innerHTML = sliderDiceWidth.value;
+  sliderDiceWidth.oninput = function () {
+    textDiceWidth.innerHTML = this.value;
+    diceWidth = parseInt(this.value);
+  };
+  selectboxColor.oninput = function () {
+    diceColor = this.value;
+  };
 }
 
 // ---------------------------------------------------------
 // -- Helper function
 
-function randomBetween(min,max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+function randomBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 // ---------------------------------------------------------
-
