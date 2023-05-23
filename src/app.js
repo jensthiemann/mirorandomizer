@@ -89,36 +89,48 @@ async function rollDiceAt(posX, posY, max) {
 }
 
 async function drawDice(posX, posY, diceText, max) {
+  var diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
+  var diceTextcolor = "#ffffff"
+  var stickyBgColor = "black"
+  switch(diceColor) {
+    case 'black': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
+      stickyBgColor = "black"
+      break;
+    case 'blue': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-blue-clean.34f2d8e0.png"
+      stickyBgColor = "blue"
+      break;
+    case 'green': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-green-clean.15281b35.png"
+      stickyBgColor = "dark_green"
+      break;
+    case 'orange': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.6fb6dedd.png"
+      stickyBgColor = "orange"
+      break;
+    case 'purple': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-purple-clean.add96b4a.png"
+      stickyBgColor = "violet"
+      break;
+    case 'red': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-red-clean.13a07752.png"
+      stickyBgColor = "red"
+      break;
+    default:
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
+      stickyBgColor = "black"
+  }
+  /*
+  <option value="cyan">cyan</option>
+  <option value="gray">gray</option>
+  <option value="yellow">yellow</option>
+  */
   if (max == 20) {
     // D20: use image + text
     var rotationAngle = randomBetween(-70, 70);
-    diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
-    diceTextcolor = "#ffffff"
-    switch(diceColor) {
-      case 'blue': 
-        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
-        break;
-      case 'blue': 
-        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-blue-clean.34f2d8e0.png"
-        break;
-      case 'green': 
-        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-green-clean.15281b35.png"
-        break;
-      case 'orange': 
-        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.6fb6dedd.png"
-        break;
-      case 'purple': 
-        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-purple-clean.add96b4a.png"
-        break;
-      case 'red': 
-        diceImageUrl = "w20-red-clean.13a07752.png"
-        break;
-      default:
-        diceImageUrl = diceImageUrl
-    }
-
     const image = await miro.board.createImage({
-      url: "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png",
+      url: diceImageUrl,
       x: posX,
       y: posY,
       width: 400, // Set either 'width', or 'height'
@@ -146,7 +158,7 @@ async function drawDice(posX, posY, diceText, max) {
       y: posY,
       width: diceWidth,
       style: {
-        fillColor: diceColor,
+        fillColor: stickyBgColor,
         textAlign: "center",
         textAlignVertical: "middle",
       },
