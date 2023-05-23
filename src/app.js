@@ -106,7 +106,8 @@ async function drawDice(posX, posY, diceText, max) {
       stickyBgColor = "dark_green"
       break;
     case 'orange': 
-      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.6fb6dedd.png"
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.cce9bc98.png"
+      var diceTextcolor = "#000000"
       stickyBgColor = "orange"
       break;
     case 'purple': 
