@@ -85,6 +85,14 @@ async function rollDice(max) {
     rotation: rotationAngle, // The text item is upside down on the board
   });
   diceElementIDs.push(stickyNote)
+console.log("image ...")
+  const image = await miro.board.createImage({
+    title: 'This is an image',
+    url: 'http://localhost:3000/src/assets/w20-black-transparent.png',
+    x:0, y:0,
+    width: 300, // Set either 'width', or 'height'
+    rotation: 0.0,
+  });
 }
 
 async function rollD6() {
