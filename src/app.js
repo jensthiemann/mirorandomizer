@@ -71,6 +71,31 @@ async function rollDice(max) {
   var posX = ( viewport.x + viewport.width ) / 2
   var posY = ( viewport.y + viewport.height ) / 2
   var rotationAngle = randomBetween(-10,10)
+
+  const image = await miro.board.createImage({
+    url: 'https://mirorandomizer.vercel.app/assets/w20-black-transparent.b8d13538.png',
+    x:posX, y:posY,
+    width: 400, // Set either 'width', or 'height'
+    rotation: 0,
+  });
+  diceElementIDs.push(image)
+
+  const text = await miro.board.createText({
+    content: ""+randomBetween(1,max),
+    style: {
+      color: '#ffffff',
+      fontSize: 80,
+      textAlign: 'center',
+    },
+    x:posX, y:posY,
+    width: 350,
+    // 'height' is calculated automatically, based on 'width'
+    rotation: rotationAngle, // The text item is upside down on the board
+  });
+  diceElementIDs.push(stickyNote)
+
+
+ /*
   const stickyNote = await miro.board.createText({
     content: '<p style="color:#808080"><br/>&nbsp;D'+max+'&nbsp;</p>' +randomBetween(1,max)+'<br/><br/>',
     style: {
@@ -85,14 +110,8 @@ async function rollDice(max) {
     rotation: rotationAngle, // The text item is upside down on the board
   });
   diceElementIDs.push(stickyNote)
-console.log("image ...")
-  const image = await miro.board.createImage({
-    title: 'This is an image',
-    url: 'http://localhost:3000/src/assets/w20-black-transparent.png',
-    x:0, y:0,
-    width: 300, // Set either 'width', or 'height'
-    rotation: 0.0,
-  });
+  */
+
 }
 
 async function rollD6() {
