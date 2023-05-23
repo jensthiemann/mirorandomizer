@@ -107,7 +107,7 @@ async function drawDice(posX, posY, diceText, max) {
       break;
     case 'orange': 
       diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.cce9bc98.png"
-      var diceTextcolor = "#000000"
+      diceTextcolor = "#000000"
       stickyBgColor = "orange"
       break;
     case 'purple': 
@@ -118,15 +118,20 @@ async function drawDice(posX, posY, diceText, max) {
       diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-red-clean.13a07752.png"
       stickyBgColor = "red"
       break;
+    case 'yellow': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-yellow-clean.9d28999b.png"
+      diceTextcolor = "#000000"
+      stickyBgColor = "yellow"
+      break;  
+    case 'white': 
+      diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-lightgray-clean.0dfdbe01.png"
+      diceTextcolor = "#000000"
+      stickyBgColor = "gray"
+      break;
     default:
       diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
       stickyBgColor = "black"
   }
-  /*
-  <option value="cyan">cyan</option>
-  <option value="gray">gray</option>
-  <option value="yellow">yellow</option>
-  */
   if (max == 20) {
     // D20: use image + text
     var rotationAngle = randomBetween(-70, 70);
@@ -134,7 +139,7 @@ async function drawDice(posX, posY, diceText, max) {
       url: diceImageUrl,
       x: posX,
       y: posY,
-      width: 400, // Set either 'width', or 'height'
+      width: diceWidth, // either 'width', or 'height'
       rotation: rotationAngle,
     });
     diceElementIDs.push(image);
@@ -142,14 +147,14 @@ async function drawDice(posX, posY, diceText, max) {
       content: "" + diceText,
       style: {
         color: diceTextcolor,
-        fontSize: 80,
+        fontSize: diceWidth/5,
         textAlign: "center",
       },
       x: posX,
       y: posY,
       width: 350,
       // 'height' is calculated automatically, based on 'width'
-      rotation: rotationAngle, // The text item is upside down on the board
+      rotation: rotationAngle,
     });
     diceElementIDs.push(text);
   } else {
@@ -187,7 +192,7 @@ async function init() {
     const amount = sliderAmount.value;
 
     for (var i = 0; i < amount; i++) {
-      var posX = x + i * 500 + randomBetween(-20, 20) // i*diceWidth
+      var posX = x + i * 1.2 * diceWidth + randomBetween(-20, 20)
       var posY = y + randomBetween(-100, 100);
       rollDiceAt(posX, posY, max);
     }
