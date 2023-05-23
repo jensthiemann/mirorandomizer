@@ -162,7 +162,7 @@ async function drawDice(posX, posY, diceText, max) {
     const stickyNote = await miro.board.createStickyNote({
       x: posX,
       y: posY,
-      width: diceWidth,
+      width: 0.8 * diceWidth,
       style: {
         fillColor: stickyBgColor,
         textAlign: "center",
