@@ -16,7 +16,16 @@
       </p>
       <div>
         <p class="p-medium">
-          Amount:
+          <select class="select-small" id="selectboxColor">
+            <option value="black">black</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="orange">orange</option>
+            <option value="purple">purple</option>
+            <option value="red">red</option>
+            <option value="yellow">yellow</option>
+            <option value="white">white</option>
+          </select>
           <input
             type="range"
             min="1"
@@ -24,9 +33,8 @@
             value="1"
             class="slider"
             id="sliderAmount"
-            style="width:100px"
           />
-          <span id="textAmount">1</span>
+          <span id="textAmount" style="width:300px">1</span>        
         </p>
       </div>
       <div class="button button-primary miro-draggable" id="textD6">
@@ -81,26 +89,10 @@
             </p>
           </td>
         </tr>
-        <tr>
-          <td>
-            <p class="p-small">Dice Color: </p>
-          </td>
-          <td>
-            <select class="select-small" id="selectboxColor">
-              <option value="black">black</option>
-              <option value="blue">blue</option>
-              <option value="green">green</option>
-              <option value="orange">orange</option>
-              <option value="purple">purple</option>
-              <option value="red">red</option>
-              <option value="yellow">yellow</option>
-              <option value="white">white</option>
-            </select>
-          </td>
-        </tr>
       </table>
 
       <hr />
+      
       <p class="p-small">Implemented by jens@thiemann.com</p>
 
       <script type="module" src="/src/app.js"></script>

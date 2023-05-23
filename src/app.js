@@ -203,18 +203,65 @@ async function init() {
   sliderAmount.oninput = function () {
     textAmount.innerHTML = this.value + " dice(s)";
     if (this.value == 1) {
-      textAmount.innerHTML = this.value + " dice";
+      textAmount.innerHTML = this.value + " dice ";
     } else {
       textAmount.innerHTML = this.value + " dices";
     }
   };
+
   textDiceWidth.innerHTML = sliderDiceWidth.value;
+
   sliderDiceWidth.oninput = function () {
     textDiceWidth.innerHTML = this.value;
     diceWidth = parseInt(this.value);
   };
+
+  textD6.style.background = "#000000"
+  textD6.style.border = "1px solid #000000"
+  textD20.style.background = "#000000"
+  textD20.style.border = "1px solid #000000"
+  
   selectboxColor.oninput = function () {
     diceColor = this.value;
+    var buttonColor = "#4361ff"
+    var buttonTextColor = "#ffffff"
+    switch(diceColor) {
+      case 'black': 
+        buttonColor = "#000000"
+        break;
+      case 'blue': 
+        buttonColor = "#0700ff"
+        break;
+      case 'green': 
+        buttonColor = "#1aa11a"
+        break;
+      case 'orange': 
+        buttonColor = "#f89a47"
+        buttonTextColor = "#000000"
+        break;
+      case 'purple': 
+        buttonColor = "#7f26d0"
+        break;
+      case 'red': 
+        buttonColor = "#ce0000"
+        break;
+      case 'yellow': 
+        buttonColor = "#fff472"
+        buttonTextColor = "#000000"
+        break;  
+      case 'white': 
+        buttonColor = "#f4f5f6"
+        buttonTextColor = "#000000"
+        break;
+      default:
+        buttonColor = "#4361ff"
+    }
+    textD6.style.background = buttonColor
+    textD6.style.border = "1px solid " + buttonColor
+    textD6.style.color = buttonTextColor
+    textD20.style.background = buttonColor
+    textD20.style.border = "1px solid " + buttonColor
+    textD20.style.color = buttonTextColor
   };
 }
 
