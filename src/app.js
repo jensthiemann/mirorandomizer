@@ -22,7 +22,6 @@ buttonPickRandom.addEventListener("click", pickRandomElement, false);
 const sliderDiceWidth = document.getElementById("sliderDiceWidth");
 const textDiceWidth = document.getElementById("textDiceWidth");
 const selectboxColor = document.getElementById("selectboxColor");
-const checkboxShowHelperSticky = document.getElementById("checkboxShowHelperSticky");
 
 // ---------------------------------------------------------
 // -- Initialization
@@ -30,7 +29,6 @@ const checkboxShowHelperSticky = document.getElementById("checkboxShowHelperStic
 var diceElementIDs = [];
 var diceWidth = 200;
 var diceColor = "black";
-var diceHelperSticky = false;
 init();
 
 // ---------------------------------------------------------
@@ -66,60 +64,65 @@ async function removeDices() {
     diceElementIDs = []
 }
 
-async function rollDice(max) {
-  const viewport = await miro.board.viewport.get()
-  var posX = ( viewport.x + viewport.width ) / 2
-  var posY = ( viewport.y + viewport.height ) / 2
-  var rotationAngle = randomBetween(-10,10)
-
-  const image = await miro.board.createImage({
-    url: 'https://mirorandomizer.vercel.app/assets/w20-black-transparent.b8d13538.png',
-    x:posX, y:posY,
-    width: 400, // Set either 'width', or 'height'
-    rotation: 0,
-  });
-  diceElementIDs.push(image)
-
-  const text = await miro.board.createText({
-    content: ""+randomBetween(1,max),
-    style: {
-      color: '#ffffff',
-      fontSize: 80,
-      textAlign: 'center',
-    },
-    x:posX, y:posY,
-    width: 350,
-    // 'height' is calculated automatically, based on 'width'
-    rotation: rotationAngle, // The text item is upside down on the board
-  });
-  diceElementIDs.push(stickyNote)
-
-
- /*
-  const stickyNote = await miro.board.createText({
-    content: '<p style="color:#808080"><br/>&nbsp;D'+max+'&nbsp;</p>' +randomBetween(1,max)+'<br/><br/>',
-    style: {
-      color: '#ffffff',
-      fillColor: '#000000',
-      fontSize: 80,
-      textAlign: 'center',
-    },
-    x:posX, y:posY,
-    width: 350,
-    // 'height' is calculated automatically, based on 'width'
-    rotation: rotationAngle, // The text item is upside down on the board
-  });
-  diceElementIDs.push(stickyNote)
-  */
-
-}
-
 async function rollD6() {
   rollDice(6)
 }
 
 async function rollD20() {
   rollDice(20)
+}
+async function rollDice(max) {
+  const viewport = await miro.board.viewport.get()
+  var posX = ( viewport.x + viewport.width ) / 2
+  var posY = ( viewport.y + viewport.height ) / 2
+  rollDiceAt(posX, posY, max)
+}
+
+async function rollDiceAt(posX, posY, max) {
+  var result = ""+randomBetween(1,max)
+  if(result == "6" || result == "9") {
+    result = result + "."
+  }
+  drawDice(posX, posY, result, max)
+}
+
+async function drawDice(posX, posY, diceText, max) {
+  if( max == 20 ) { // D20: use image + text
+    var rotationAngle = randomBetween(-70,70)
+    const image = await miro.board.createImage({
+      url: 'https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png',
+      x:posX, y:posY,
+      width: 400, // Set either 'width', or 'height'
+      rotation: rotationAngle,
+    });
+    diceElementIDs.push(image)
+    const text = await miro.board.createText({
+      content: ""+diceText,
+      style: {
+        color: '#ffffff',
+        fontSize: 80,
+        textAlign: 'center',
+      },
+      x:posX, y:posY,
+      width: 350,
+      // 'height' is calculated automatically, based on 'width'
+      rotation: rotationAngle, // The text item is upside down on the board
+    });
+    diceElementIDs.push(text)
+  }
+  else { // not a D20: use sticky note
+    const stickyNote = await miro.board.createStickyNote({
+      x:posX, y:posY,
+      width: diceWidth,
+      style: {
+        fillColor: diceColor,
+        textAlign: 'center',
+        textAlignVertical: 'middle',
+      },
+      content: ""+diceText
+    });
+    diceElementIDs.push(stickyNote)
+  }
 }
 
 // ---------------------------------------------------------
@@ -136,23 +139,11 @@ async function init() {
 
     const sliderAmount = document.getElementById("sliderAmount")
     const amount = sliderAmount.value 
-    if( diceHelperSticky == true) {
-      var infoSticky = await miro.board.createStickyNote({x, y, width: diceWidth,
-            content: " D" + max  });
-      diceElementIDs.push(infoSticky)
-    }
 
     for(var i=1; i<=amount; i++) {
-        var posX = x + i*diceWidth
-        var sticky = await miro.board.createStickyNote({x:posX, y, width: diceWidth, 
-              style: {
-                fillColor: diceColor,
-                textAlign: 'center',
-                textAlignVertical: 'middle',
-              },
-              content: " "+randomBetween(1, max)
-            });
-        diceElementIDs.push(sticky)
+        var posX = x + i*500   // i*diceWidth
+        var posY = y + randomBetween(-100,100)
+        rollDiceAt(posX, posY, max)  // width: diceWidth
     }
   });
 
@@ -174,9 +165,6 @@ async function init() {
   selectboxColor.oninput = function() {
     diceColor = this.value
   }
-  checkboxShowHelperSticky.oninput = function() {
-    diceHelperSticky = this.checked
-  }  
   
 }
 
