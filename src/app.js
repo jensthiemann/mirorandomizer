@@ -92,6 +92,31 @@ async function drawDice(posX, posY, diceText, max) {
   if (max == 20) {
     // D20: use image + text
     var rotationAngle = randomBetween(-70, 70);
+    diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
+    diceTextcolor = "#ffffff"
+    switch(diceColor) {
+      case 'blue': 
+        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png"
+        break;
+      case 'blue': 
+        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-blue-clean.34f2d8e0.png"
+        break;
+      case 'green': 
+        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-green-clean.15281b35.png"
+        break;
+      case 'orange': 
+        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-orange-clean.6fb6dedd.png"
+        break;
+      case 'purple': 
+        diceImageUrl = "https://mirorandomizer.vercel.app/assets/w20-purple-clean.add96b4a.png"
+        break;
+      case 'red': 
+        diceImageUrl = "w20-red-clean.13a07752.png"
+        break;
+      default:
+        diceImageUrl = diceImageUrl
+    }
+
     const image = await miro.board.createImage({
       url: "https://mirorandomizer.vercel.app/assets/w20-black-clean.10e88cb2.png",
       x: posX,
@@ -103,7 +128,7 @@ async function drawDice(posX, posY, diceText, max) {
     const text = await miro.board.createText({
       content: "" + diceText,
       style: {
-        color: "#ffffff",
+        color: diceTextcolor,
         fontSize: 80,
         textAlign: "center",
       },
