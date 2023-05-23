@@ -17,9 +17,10 @@ html {
 
 body {
   height: 100%;
-  line-height: 1.5;
+  line-height: 1;
   margin: 0;
   padding: 2rem;
+  padding-top:0px;
 }
 
 .container {
@@ -27,6 +28,7 @@ body {
   margin: 0 auto;
   background-color: var(--indigo50);
   padding: var(--space-xxxlarge);
+  padding-top: 0px;
   border-radius: var(--border-radius-xlarge);
 }
 

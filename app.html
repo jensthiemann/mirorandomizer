@@ -8,27 +8,33 @@
     <title>Randomizer</title>
   </head>
   <body>
-
-    <h1 class="h1">Dices</h1>
-    <p class="p-large">Press or drag a button to create sticky notes with a random number.</p>
+  <div style="overflow: scroll; max-height:600px;">
+    <h1 class="h1" style="margin-top:0px">Dices</h1>
+    <p class="p-medium">Press or drag a button to create sticky notes with a random number.</p>
     <div>
-     Amount of Dices: <span id="amountText">1</span>
-     <input type="range" min="1" max="5" value="1" class="slider" id="amountSlider"><br/><br/>
+      <p class="p-medium">Amount:
+       <input type="range" min="1" max="5" value="1" class="slider" id="sliderAmount" style="width:100px">
+       <span id="textAmount">1</span>
+     </p>
     </div>
-    <div class="button button-primary miro-draggable" id="TextD6">D6</div>
-    <div class="button button-primary miro-draggable" id="TextD20">D20</div>
- 
-    <p class="p-large"/>
-    <p class="p-large">
-     Clean the board from all dices. 
-    <div class="button button-primary" id="button_removeDices">Remove Dices</div>
-    </p>
-  
-    <h1 class="h1">Shuffle</h1>
-    <p class="p-large">Shuffle all selected elements in a random order from front to back.</p>
-    <div class="button button-primary" id="button_ShuffleElements">Shuffle Cards</div>
-    <hr/>
+    <div class="button button-primary miro-draggable" id="textD6">D6</div>
+    <div class="button button-primary miro-draggable" id="textD20">D20</div>
 
+    <p class="p-medium"/>
+    <p class="p-medium">
+     Clean the board from all dices. 
+    <div class="button button-primary" id="buttonRemoveDices">Remove Dices</div>
+    </p>
+
+    <hr/>
+   
+    <h1 class="h1">Cards</h1>
+    <p class="p-medium">Shuffle all selected elements in a random order from front to back, or select one random card from the selection.</p>
+    <div class="button button-primary" id="buttonShuffleElements">Shuffle Cards</div>
+    <div class="button button-primary" id="buttonPickRandom">Pick Random</div>
+
+    <hr/>
+    
     <h3>Configuration</h3>
     <table>
      <tr>
@@ -84,8 +90,8 @@
 
     <hr/> 
     <p class="p-small">Implemented by jens@thiemann.com</p>
-
+  
     <script type="module" src="/src/app.js"></script>
-
+  </div>
   </body>
 </html>

@@ -1,20 +1,23 @@
 // ---------------------------------------------------------
 // -- UI elements
 
-const slider = document.getElementById("amountSlider");
-const sliderText = document.getElementById("amountText");
+const sliderAmount = document.getElementById("sliderAmount");
+const textAmount = document.getElementById("textAmount");
 
-const TextD6 = document.getElementById("TextD6");
-TextD6.addEventListener("click", rollD6, false);
+const textD6 = document.getElementById("textD6");
+textD6.addEventListener("click", rollD6, false);
 
-const TextD20 = document.getElementById("TextD20");
-TextD20.addEventListener("click", rollD20, false);
+const textD20 = document.getElementById("textD20");
+textD20.addEventListener("click", rollD20, false);
 
-const buttonRemoveDices = document.getElementById("button_removeDices");
+const buttonRemoveDices = document.getElementById("buttonRemoveDices");
 buttonRemoveDices.addEventListener("click", removeDices, false);
 
-const buttonShuffleElements = document.getElementById("button_ShuffleElements");
+const buttonShuffleElements = document.getElementById("buttonShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
+
+const buttonPickRandom = document.getElementById("buttonPickRandom");
+buttonPickRandom.addEventListener("click", pickRandomElement, false);
 
 const sliderDiceWidth = document.getElementById("sliderDiceWidth");
 const textDiceWidth = document.getElementById("textDiceWidth");
@@ -43,12 +46,20 @@ async function shuffleElements() {
     // await miro.board.bringToFront(firstElement)
 }
 
+async function pickRandomElement() {  
+  var selection = await miro.board.getSelection()
+  var r = randomBetween(0,selection.length-1)
+  await miro.board.deselect()
+  await miro.board.select({id: selection[r].id})
+  await miro.board.bringToFront(selection[r])
+}
+
 async function removeDices() {  
     for (var i=0; i<diceElementIDs.length; i++){
       var id = diceElementIDs[i].id
       if(miro.board.getById(id)!=null) {
         await miro.board.remove(diceElementIDs[i]).catch((error) => { 
-            // skip
+            // ignore any error
           })
       }
     }
@@ -59,21 +70,25 @@ async function rollDice(max) {
   const viewport = await miro.board.viewport.get()
   var posX = ( viewport.x + viewport.width ) / 2
   var posY = ( viewport.y + viewport.height ) / 2
-  const stickyNote = await miro.board.createStickyNote({
-    x:posX, y:posY,
-    width: diceWidth,
+  var rotationAngle = randomBetween(-10,10)
+  const stickyNote = await miro.board.createText({
+    content: '<p style="color:#808080"><br/>&nbsp;D'+max+'&nbsp;</p>' +randomBetween(1,max)+'<br/><br/>',
     style: {
-      fillColor: diceColor,
+      color: '#ffffff',
+      fillColor: '#000000',
+      fontSize: 80,
       textAlign: 'center',
-      textAlignVertical: 'middle',
     },
-    content: 'D'+max+' rolls ' +randomBetween(1,max) 
+    x:posX, y:posY,
+    width: 350,
+    // 'height' is calculated automatically, based on 'width'
+    rotation: rotationAngle, // The text item is upside down on the board
   });
   diceElementIDs.push(stickyNote)
 }
 
 async function rollD6() {
-    rollDice(6)
+  rollDice(6)
 }
 
 async function rollD20() {
@@ -92,31 +107,37 @@ async function init() {
     if (target.id.endsWith("D6")) { max = 6 }
     if (target.id.endsWith("D20")) { max = 20 }
 
-    const amountSlider = document.getElementById("amountSlider")
-    const amount = amountSlider.value 
+    const sliderAmount = document.getElementById("sliderAmount")
+    const amount = sliderAmount.value 
     if( diceHelperSticky == true) {
       var infoSticky = await miro.board.createStickyNote({x, y, width: diceWidth,
-            content: amount + " D" + max  });
+            content: " D" + max  });
       diceElementIDs.push(infoSticky)
     }
 
     for(var i=1; i<=amount; i++) {
         var posX = x + i*diceWidth
         var sticky = await miro.board.createStickyNote({x:posX, y, width: diceWidth, 
-            style: {
+              style: {
                 fillColor: diceColor,
                 textAlign: 'center',
                 textAlignVertical: 'middle',
               },
-            content: " "+randomBetween(1, max) });
+              content: " "+randomBetween(1, max)
+            });
         diceElementIDs.push(sticky)
     }
   });
 
-  // init sliders and register change events
-  sliderText.innerHTML = slider.value
-  slider.oninput = function() {
-      sliderText.innerHTML = this.value
+  // init fields and register change events
+  textAmount.innerHTML = sliderAmount.value + "dice"
+  sliderAmount.oninput = function() {
+      textAmount.innerHTML = this.value + " dice(s)"
+      if( this.value == 1 ) {
+        textAmount.innerHTML = this.value + " dice"
+      } else {
+        textAmount.innerHTML = this.value + " dices"
+      }
   }
   textDiceWidth.innerHTML = sliderDiceWidth.value
   sliderDiceWidth.oninput = function() {
@@ -126,7 +147,6 @@ async function init() {
   selectboxColor.oninput = function() {
     diceColor = this.value
   }
-
   checkboxShowHelperSticky.oninput = function() {
     diceHelperSticky = this.checked
   }  
