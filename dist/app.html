@@ -5,7 +5,7 @@
     
     <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
     <title>Randomizer</title>
-    <script type="module" crossorigin src="/assets/app.59de5595.js"></script>
+    <script type="module" crossorigin src="/assets/app.c884ad47.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/style.a87c9e06.js">
     <link rel="stylesheet" href="/assets/style.7dc1b0f6.css">
   </head>
@@ -19,7 +19,16 @@
       </p>
       <div>
         <p class="p-medium">
-          Amount:
+          <select class="select-small" id="selectboxColor">
+            <option value="black">black</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="orange">orange</option>
+            <option value="purple">purple</option>
+            <option value="red">red</option>
+            <option value="yellow">yellow</option>
+            <option value="white">white</option>
+          </select>
           <input
             type="range"
             min="1"
@@ -27,9 +36,8 @@
             value="1"
             class="slider"
             id="sliderAmount"
-            style="width:100px"
           />
-          <span id="textAmount">1</span>
+          <span id="textAmount" style="width:300px">1</span>        
         </p>
       </div>
       <div class="button button-primary miro-draggable" id="textD6">
@@ -86,32 +94,19 @@
         </tr>
         <tr>
           <td>
-            <p class="p-small">Dice Color: </p>
+            <p class="p-small">Shuffle Order:</p>
           </td>
           <td>
-            <select class="select-small" id="selectboxColor">
-              <option value="black">black</option>
-              <option value="blue">blue</option>
-              <option value="cyan">cyan</option>
-              <option value="dark_blue">dark_blue</option>
-              <option value="dark_green">dark_green</option>
-              <option value="gray">gray</option>
-              <option value="green">green</option>
-              <option value="light_blue">light_blue</option>
-              <option value="light_green">light_green</option>
-              <option value="light_pink">light_pink</option>
-              <option value="light_yellow">light_yellow</option>
-              <option value="yellow">yellow</option>
-              <option value="orange">orange</option>
-              <option value="pink">pink</option>
-              <option value="red">red</option>
-              <option value="violet">violet</option>
+            <select class="select-small" id="selectboxShuffleOrder">
+              <option value="tofront">to Front</option>
+              <option value="toback">to Back</option>
             </select>
           </td>
         </tr>
       </table>
 
       <hr />
+      
       <p class="p-small">Implemented by jens@thiemann.com</p>
 
       

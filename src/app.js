@@ -3,6 +3,7 @@
 
 const sliderAmount = document.getElementById("sliderAmount");
 const textAmount = document.getElementById("textAmount");
+const selectboxColor = document.getElementById("selectboxColor");
 
 const textD6 = document.getElementById("textD6");
 textD6.addEventListener("click", rollD6, false);
@@ -22,7 +23,7 @@ buttonPickRandom.addEventListener("click", pickRandomElement, false);
 const sliderDiceWidth = document.getElementById("sliderDiceWidth");
 const textDiceWidth = document.getElementById("textDiceWidth");
 
-const selectboxColor = document.getElementById("selectboxColor");
+const selectboxShuffleOrder = document.getElementById("selectboxShuffleOrder");
 
 // ---------------------------------------------------------
 // -- Initialization
@@ -30,6 +31,7 @@ const selectboxColor = document.getElementById("selectboxColor");
 var diceElementIDs = [];
 var diceWidth = 200;
 var diceColor = "black";
+var shuffleToFront = true;
 init();
 
 // ---------------------------------------------------------
@@ -40,9 +42,12 @@ async function shuffleElements() {
   var firstElement = selection[0];
   for (var i = 0; i < 2 * selection.length; i++) {
     var r = randomBetween(0, selection.length - 1);
-    await miro.board.bringToFront(selection[r]);
+    if (shuffleToFront) {
+      await miro.board.bringToFront(selection[r]);
+    } else {
+      await miro.board.sendToBack(selection[r]);
+    }  
   }
-  // await miro.board.bringToFront(firstElement)
 }
 
 async function pickRandomElement() {
@@ -178,6 +183,7 @@ async function drawDice(posX, posY, diceText, max) {
 // -- init
 
 async function init() {
+  
   // register drop event for dices
   await miro.board.ui.on("drop", async ({ x, y, target }) => {
     var max = 1;
@@ -262,7 +268,16 @@ async function init() {
     textD20.style.background = buttonColor
     textD20.style.border = "1px solid " + buttonColor
     textD20.style.color = buttonTextColor
-  };
+  }
+
+  selectboxColor.oninput = function () {
+    if (this.value=="tofront") {
+      shuffleToFront = true
+    } else {
+      shuffleToFront = false
+    }
+  }
+
 }
 
 // ---------------------------------------------------------
