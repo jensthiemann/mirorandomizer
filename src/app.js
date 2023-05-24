@@ -42,7 +42,7 @@ async function shuffleElements() {
   var firstElement = selection[0];
   for (var i = 0; i < 2 * selection.length; i++) {
     var r = randomBetween(0, selection.length - 1);
-    if (shuffleToFront) {
+    if (shuffleToFront == true) {
       await miro.board.bringToFront(selection[r]);
     } else {
       await miro.board.sendToBack(selection[r]);
@@ -183,7 +183,7 @@ async function drawDice(posX, posY, diceText, max) {
 // -- init
 
 async function init() {
-  
+
   // register drop event for dices
   await miro.board.ui.on("drop", async ({ x, y, target }) => {
     var max = 1;
