@@ -270,7 +270,7 @@ async function init() {
     textD20.style.color = buttonTextColor
   }
 
-  selectboxColor.oninput = function () {
+  selectboxShuffleOrder.oninput = function () {
     if (this.value=="tofront") {
       shuffleToFront = true
     } else {
