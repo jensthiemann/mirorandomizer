@@ -80,8 +80,8 @@ async function rollD20() {
 
 async function rollDice(max) {
   const viewport = await miro.board.viewport.get();
-  var posX = (viewport.x + viewport.width) / 2;
-  var posY = (viewport.y + viewport.height) / 2;
+  var posX = viewport.x + viewport.width / 2;
+  var posY = viewport.y + viewport.height / 2;
   rollDiceAt(posX, posY, max);
 }
 
