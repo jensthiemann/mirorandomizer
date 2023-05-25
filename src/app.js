@@ -11,8 +11,8 @@ textD6.addEventListener("click", rollD6, false);
 const textD20 = document.getElementById("textD20");
 textD20.addEventListener("click", rollD20, false);
 
-const buttonRemoveDices = document.getElementById("buttonRemoveDices");
-buttonRemoveDices.addEventListener("click", removeDices, false);
+const buttonRemoveDice = document.getElementById("buttonRemoveDice");
+buttonRemoveDice.addEventListener("click", removeDice, false);
 
 const buttonShuffleElements = document.getElementById("buttonShuffleElements");
 buttonShuffleElements.addEventListener("click", shuffleElements, false);
@@ -58,7 +58,7 @@ async function pickRandomElement() {
   await miro.board.bringToFront(selection[r]);
 }
 
-async function removeDices() {
+async function removeDice() {
   for (var i = 0; i < diceElementIDs.length; i++) {
     var id = diceElementIDs[i].id;
     if (miro.board.getById(id) != null) {
@@ -184,7 +184,7 @@ async function drawDice(posX, posY, diceText, max) {
 
 async function init() {
 
-  // register drop event for dices
+  // register drop event for dice
   await miro.board.ui.on("drop", async ({ x, y, target }) => {
     var max = 1;
     if (target.id.endsWith("D6")) {
@@ -207,12 +207,7 @@ async function init() {
   // init fields and register change events
   textAmount.innerHTML = sliderAmount.value + "dice";
   sliderAmount.oninput = function () {
-    textAmount.innerHTML = this.value + " dice(s)";
-    if (this.value == 1) {
-      textAmount.innerHTML = this.value + " dice ";
-    } else {
-      textAmount.innerHTML = this.value + " dices";
-    }
+    textAmount.innerHTML = this.value + " dice";
   };
 
   textDiceWidth.innerHTML = sliderDiceWidth.value;
